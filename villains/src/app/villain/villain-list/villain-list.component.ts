@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VillainService } from '../villain.service';
 import { VillainData } from '../villain-data.model';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-villain-list',
@@ -10,7 +11,11 @@ import { VillainData } from '../villain-data.model';
 export class VillainListComponent implements OnInit {
   villainData: VillainData[];
   didFail = false;
-  constructor(private villainService: VillainService) {}
+  constructor(
+    private villainService: VillainService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.villainService.dataLoaded.subscribe((data: VillainData[]) => {
@@ -22,5 +27,9 @@ export class VillainListComponent implements OnInit {
     );
 
     this.villainService.onRetrieveData();
+  }
+
+  onNewVillain() {
+    this.router.navigate(['new'], { relativeTo: this.route });
   }
 }

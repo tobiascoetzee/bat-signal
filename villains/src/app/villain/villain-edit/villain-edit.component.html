@@ -1,3 +1,91 @@
-<p>
-  villain-edit works!
-</p>
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="villainForm" (ngSubmit)="onSubmit()">
+      <div class="row mb-2">
+        <div class="col">
+          <button type="submit" class="btn btn-success mr-1">Save</button>
+          <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" formControlName="name" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="realName">Real Name</label>
+            <input type="text" id="realName" formControlName="realName" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="characterType">Character Type</label>
+            <input type="text" id="characterType" formControlName="characterType" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <input type="text" id="gender" formControlName="gender" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea type="text" id="description" class="form-control" formControlName="description" rows="6"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="imageUrl">Image URL</label>
+            <input type="text" id="imageUrl" formControlName="imageUrl" class="form-control" #imagePath>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col">
+          <img [src]="imagePath.value" class="img-responsive">
+        </div>
+      </div>
+
+      <div class="row">
+          <div class="col" formArrayName="powers">
+            <label for="description">Powers</label>
+            <div class="row" *ngFor="let powerCtrl of getPowersControls(); let i = index" [formGroupName]="i" style="margin-top: 10px;">
+              <div class="col">
+                <input type="text" class="form-control" formControlName="power">
+              </div>
+              <div class="col">
+                <button type="button" class="btn btn-danger" (click)="onDeletePower(i)">X</button>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col">
+                <button type="button" class="btn btn-success" (click)="onAddPower()">Add Power</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </form>
+  </div>
+</div>
