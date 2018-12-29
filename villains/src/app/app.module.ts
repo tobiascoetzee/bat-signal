@@ -12,6 +12,9 @@ import { VillainEditComponent } from './villain/villain-edit/villain-edit.compon
 import { VillainComponent } from './villain/villain.component';
 import { AuthGuard } from './user/auth-guard.service';
 import { AuthService } from './user/auth.service';
+import { HttpModule } from '@angular/http';
+import { VillainItemComponent } from './villain/villain-list/villain-item/villain-item.component';
+import { VillainStartComponent } from './villain/villain-start/villain-start.component';
 
 @NgModule({
   declarations: [
@@ -21,12 +24,15 @@ import { AuthService } from './user/auth.service';
     VillainListComponent,
     VillainDetailComponent,
     VillainEditComponent,
-    VillainComponent
+    VillainComponent,
+    VillainItemComponent,
+    VillainStartComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpModule
   ],
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]

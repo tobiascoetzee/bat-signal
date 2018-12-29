@@ -2,7 +2,7 @@ import { Subject, Observable } from 'rxjs';
 
 export class AuthService {
   authStatusChanged = new Subject<boolean>();
-  userLoggedIn = false;
+  userLoggedIn = true;
 
   isAuthenticated(): Observable<boolean> {
     const authenticatedObservable = Observable.create(observer => {

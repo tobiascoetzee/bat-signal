@@ -1,3 +1,5 @@
-<p>
-  villain-list works!
-</p>
+<div class="row">
+  <div class="col">
+    <app-villain-item *ngFor="let villain of villainData; let i = index" [villainData]="villain" [index]="i"></app-villain-item>
+  </div>
+</div>
