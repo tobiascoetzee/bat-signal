@@ -1,33 +1,137 @@
 import { Subject, Observable } from 'rxjs';
 
+import {
+  CognitoUserPool,
+  CognitoUser,
+  AuthenticationDetails,
+  CognitoUserSession,
+  CognitoUserAttribute
+} from 'amazon-cognito-identity-js';
+import { Router } from '@angular/router';
+import { User } from './user.model';
+import { Injectable } from '@angular/core';
+
+const POOL_DATA = {
+  UserPoolId: 'us-east-2_Mi8bdKn5I',
+  ClientId: '1bgtqt84ej1c41vj5bppts3gvu'
+};
+
+const userPool = new CognitoUserPool(POOL_DATA);
+
+@Injectable()
 export class AuthService {
   authStatusChanged = new Subject<boolean>();
-  userLoggedIn = true;
+  registeredUser: CognitoUser;
+
+  constructor(private router: Router) {}
 
   isAuthenticated(): Observable<boolean> {
-    const authenticatedObservable = Observable.create(observer => {
-      if (this.userLoggedIn) {
-        observer.next(true);
-      } else {
+    const user = this.getAuthenticatedUser();
+    const obs = Observable.create(observer => {
+      if (!user) {
         observer.next(false);
+      } else {
+        user.getSession((err, session) => {
+          if (err) {
+            observer.next(false);
+          } else {
+            if (session.isValid()) {
+              observer.next(true);
+            } else {
+              observer.next(false);
+            }
+          }
+        });
       }
       observer.complete();
     });
-
-    return authenticatedObservable;
+    return obs;
   }
 
-  signIn() {
-    this.userLoggedIn = true;
-    this.authStatusChanged.next(true);
+  signIn(username: string, password: string): void {
+    const authData = {
+      Username: username,
+      Password: password
+    };
+
+    const authDetails = new AuthenticationDetails(authData);
+    const userData = {
+      Username: username,
+      Pool: userPool
+    };
+    const cognitoUser = new CognitoUser(userData);
+    const that = this;
+    cognitoUser.authenticateUser(authDetails, {
+      onSuccess(result: CognitoUserSession) {
+        that.authStatusChanged.next(true);
+        console.log(result);
+      },
+      onFailure(err) {
+        that.authStatusChanged.next(false);
+        console.log(err);
+      }
+    });
+    return;
+  }
+
+  getAuthenticatedUser() {
+    return userPool.getCurrentUser();
   }
 
   logout() {
-    this.userLoggedIn = false;
+    this.getAuthenticatedUser().signOut();
     this.authStatusChanged.next(false);
   }
 
   initAuth() {
     this.isAuthenticated().subscribe(auth => this.authStatusChanged.next(auth));
   }
+
+  signUp(username: string, email: string, password: string): void {
+    const user: User = {
+      username: username,
+      email: email,
+      password: password
+    };
+
+    const attrList: CognitoUserAttribute[] = [];
+
+    const emailAttribute = {
+      Name: 'email',
+      Value: user.email
+    };
+
+    attrList.push(new CognitoUserAttribute(emailAttribute));
+
+    userPool.signUp(
+      user.username,
+      user.password,
+      attrList,
+      null,
+      (err, result) => {
+        if (err) {
+          return;
+        }
+        this.registeredUser = result.user;
+      }
+    );
+
+    return;
+  }
+
+  confirmUser(username: string, code: string) {
+    const userData = {
+      Username: username,
+      Pool: userPool
+    };
+
+    const cognitoUser = new CognitoUser(userData);
+    cognitoUser.confirmRegistration(code, true, (err, result) => {
+      if (err) {
+        return;
+      }
+      this.router.navigate(['/']);
+    });
+  }
+
 }
