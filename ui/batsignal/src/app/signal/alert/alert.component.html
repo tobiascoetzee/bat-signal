@@ -1,3 +1,81 @@
-<p>
-  alert works!
-</p>
+<div class="card">
+  <div class="card-body">
+    <div *ngIf="!alertSent">
+      <form [formGroup]="alertForm" (ngSubmit)="onSubmit()">
+
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" formControlName="name" placeholder="I'm Batman" class="form-control">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="villain">Villain</label>
+              <select class="form-control" id="villain" formControlName="villain">
+                <option selected>Choose...</option>
+                <option value="Joker">Joker</option>
+                <option value="Catwoman">Catwoman</option>
+                <option value="Lex Luthor">Lex Luthor</option>
+                <option value="Two Face">Two Face</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="description">Alert Description</label>
+              <textarea type="text" id="description" class="form-control" formControlName="description" rows="6"
+                placeholder="Give us some details about why you need Batman."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" formControlName="email" placeholder="someone@bat-signal.net" class="form-control">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="phoneNumber">Phone Number</label>
+              <input type="tel" id="phoneNumber" formControlName="phoneNumber" class="form-control">
+              <small id="phoneNumberHelp" class="form-text text-muted">We'll never share your phone number with anyone
+                else.</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-2">
+          <div class="col">
+            <button type="submit" class="btn btn-dark mr-1" [disabled]="alertForm.invalid">Send Alert</button>
+            <button type="button" class="btn btn-warning" (click)="onCancel()">Cancel Alert</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div *ngIf="alertSent" class="text-center">
+      <img class="mb-1" src="../../../assets/batman-5-logo-svg-vector.svg" alt="" width="72" height="72">
+      <h4>Alert Sent!</h4>
+      <p>Your alert reference is <span class="font-weight-bold">{{ alertReference }}</span></p>
+      <div class="row">
+        <div class="col">
+          <button type="button" class="btn btn-dark" (click)="onNewAlert()">New Alert</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
