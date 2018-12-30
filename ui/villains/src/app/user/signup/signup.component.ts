@@ -11,12 +11,9 @@ export class SignupComponent implements OnInit {
   @ViewChild('usrForm') form: NgForm;
   confirmUser = false;
 
-  constructor(private authService: AuthService) {
-  }
+  constructor(private authService: AuthService) {}
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   onSubmit() {
     const usrName = this.form.value.username;
@@ -29,7 +26,7 @@ export class SignupComponent implements OnInit {
     this.confirmUser = true;
   }
 
-  onConfirm(formValue: { usrName: string, validationCode: string }) {
+  onConfirm(formValue: { usrName: string; validationCode: string }) {
     this.authService.confirmUser(formValue.usrName, formValue.validationCode);
   }
 }
