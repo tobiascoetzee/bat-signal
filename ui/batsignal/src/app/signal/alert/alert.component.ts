@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { VillainService } from '../villain.service';
 import { VillainData } from '../villain-data.model';
+import { SignalService } from '../signal.service';
+import { AlertReferenceData } from '../alert-reference-data.model';
 
 @Component({
   selector: 'app-alert',
@@ -12,14 +14,19 @@ export class AlertComponent implements OnInit {
   villainData: VillainData[];
   alertForm: FormGroup;
   alertSent = false;
-  alertReference = '234-sds-232-dsd-233d';
+  alertReference: string;
 
-  constructor(private villainService: VillainService) {}
+  constructor(private villainService: VillainService, private signalService: SignalService) {}
 
   ngOnInit() {
+    this.initForm();
+
     this.villainService.dataLoaded.subscribe((data: VillainData[]) => {
       this.villainData = data;
-      this.initForm();
+    });
+
+    this.signalService.alertReferenceReturned.subscribe((data: AlertReferenceData) => {
+      this.alertReference = data.referenceId;
     });
 
     this.villainService.onRetrieveData();
@@ -41,7 +48,7 @@ export class AlertComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.alertForm.value);
+    this.signalService.onInsertData(this.alertForm.value);
     this.alertSent = true;
   }
 
