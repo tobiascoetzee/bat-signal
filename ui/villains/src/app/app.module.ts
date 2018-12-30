@@ -35,7 +35,7 @@ import { VillainStartComponent } from './villain/villain-start/villain-start.com
     ReactiveFormsModule,
     HttpModule
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

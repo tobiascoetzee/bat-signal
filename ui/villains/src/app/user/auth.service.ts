@@ -18,7 +18,9 @@ const POOL_DATA = {
 
 const userPool = new CognitoUserPool(POOL_DATA);
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
   authStatusChanged = new Subject<boolean>();
   registeredUser: CognitoUser;
