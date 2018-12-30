@@ -64,11 +64,10 @@ export class AuthService {
     cognitoUser.authenticateUser(authDetails, {
       onSuccess(result: CognitoUserSession) {
         that.authStatusChanged.next(true);
-        console.log(result);
       },
       onFailure(err) {
         that.authStatusChanged.next(false);
-        console.log(err);
+        console.error(err);
       }
     });
     return;

@@ -34,5 +34,6 @@ export class VillainListComponent implements OnInit {
 
   onRefresh() {
     this.villainService.onRetrieveData();
+    this.router.navigate(['/villains']);
   }
 }
