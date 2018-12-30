@@ -17,11 +17,7 @@
             <div class="form-group">
               <label for="villain">Villain</label>
               <select class="form-control" id="villain" formControlName="villain">
-                <option selected>Choose...</option>
-                <option value="Joker">Joker</option>
-                <option value="Catwoman">Catwoman</option>
-                <option value="Lex Luthor">Lex Luthor</option>
-                <option value="Two Face">Two Face</option>
+                <option class='option' *ngFor='let option of villainData' [value]="option.name">{{ option.name }}</option>
               </select>
             </div>
           </div>
