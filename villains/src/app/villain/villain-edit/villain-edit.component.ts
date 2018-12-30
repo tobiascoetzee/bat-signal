@@ -84,10 +84,14 @@ export class VillainEditComponent implements OnInit {
   }
 
   onSubmit() {
+    const villainFormData = this.villainForm.value;
+    const powers = villainFormData.powers.map(item => item.power);
+    villainFormData.powers = powers;
+
     if (this.editMode) {
-      console.log('Update Villain');
+      this.villainService.onUpdateData(villainFormData);
     } else {
-      console.log('Add Villain');
+      this.villainService.onInsertData(villainFormData);
     }
 
     this.onCancel();

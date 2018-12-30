@@ -19,7 +19,6 @@ export class VillainListComponent implements OnInit {
 
   ngOnInit() {
     this.villainService.dataLoaded.subscribe((data: VillainData[]) => {
-      console.log('In component' + data);
       this.villainData = data;
     });
     this.villainService.dataLoadFailed.subscribe(
@@ -31,5 +30,9 @@ export class VillainListComponent implements OnInit {
 
   onNewVillain() {
     this.router.navigate(['new'], { relativeTo: this.route });
+  }
+
+  onRefresh() {
+    this.villainService.onRetrieveData();
   }
 }

@@ -23,9 +23,18 @@ export class VillainDetailComponent implements OnInit {
       this.id = +params['id'];
       this.villainData = this.villainService.getVillainFromIndex(this.id);
     });
+
+    this.villainService.dataLoaded.subscribe((data: VillainData[]) => {
+      this.villainData = this.villainService.getVillainFromIndex(this.id);
+    });
   }
 
   onEditVillain() {
-    this.router.navigate(['edit'], {relativeTo: this.route});
+    this.router.navigate(['edit'], { relativeTo: this.route });
+  }
+
+  onDeleteVillain() {
+    this.villainService.onDeleteData(this.villainData.name);
+    this.router.navigate(['/villains']);
   }
 }
