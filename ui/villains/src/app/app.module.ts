@@ -10,7 +10,7 @@ import { VillainListComponent } from './villain/villain-list/villain-list.compon
 import { VillainDetailComponent } from './villain/villain-detail/villain-detail.component';
 import { VillainEditComponent } from './villain/villain-edit/villain-edit.component';
 import { VillainComponent } from './villain/villain.component';
-import { AuthGuard } from './user/auth-guard.service';
+import { AuthGuard } from './user/auth.guard';
 import { AuthService } from './user/auth.service';
 import { HttpModule } from '@angular/http';
 import { VillainItemComponent } from './villain/villain-list/villain-item/villain-item.component';

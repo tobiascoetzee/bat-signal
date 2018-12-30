@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SigninComponent } from './user/signin/signin.component';
 import { SignupComponent } from './user/signup/signup.component';
 import { VillainComponent } from './villain/villain.component';
-import { AuthGuard } from './user/auth-guard.service';
+import { AuthGuard } from './user/auth.guard';
 import { VillainStartComponent } from './villain/villain-start/villain-start.component';
 import { VillainEditComponent } from './villain/villain-edit/villain-edit.component';
 import { VillainDetailComponent } from './villain/villain-detail/villain-detail.component';
