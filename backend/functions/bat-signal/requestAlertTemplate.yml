@@ -1,0 +1,8 @@
+'#set($inputRoot = $input.path("$"))
+{
+  "name" : "$inputRoot.name",
+  "villain" : "$inputRoot.villain",
+  "description" : "$inputRoot.description",
+  "email" : "$inputRoot.email",
+  "phoneNumber" : "$inputRoot.phoneNumber"
+}'

@@ -1,0 +1,24 @@
+{
+    "characterType": "Human",
+    "description": "Catwoman, the costumed alias persona of Selina Kyle, is a cat burglar with an on-again, off-again, romantic relationship with Batman. She is shown as a woman who is very strong-willed, independent and morally dubious.",
+    "gender": "Female",
+    "imageUrl": "https://static.comicvine.com/uploads/scale_small/6/63459/5555748-0765257915-3301a.jpg",
+    "name": "Catwoman",
+    "powers": [
+      "Agility",
+      "Animal Control",
+      "Claws",
+      "Escape Artist",
+      "Feral",
+      "Gadgets",
+      "Intellect",
+      "Marksmanship",
+      "Stamina",
+      "Stealth",
+      "Tracking",
+      "Unarmed Combat",
+      "Wall Clinger",
+      "Weapon Master"
+    ],
+    "realName": "Selina Kyle"
+  }

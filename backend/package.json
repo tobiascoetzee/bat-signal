@@ -1,0 +1,15 @@
+{
+  "name": "bat-signal",
+  "version": "0.0.1",
+  "description": "Bat-signal application backends",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tobiascoetzee/bat-signal.git"
+  },
+  "author": "Tobias Coetzee",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tobiascoetzee/bat-signal/issues"
+  },
+  "homepage": "https://github.com/tobiascoetzee/bat-signal#readme"
+}

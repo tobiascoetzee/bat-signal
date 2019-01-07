@@ -1,0 +1,22 @@
+'#set($inputRoot = $input.path("$"))
+{
+  "villains" : [
+#foreach($elem in $inputRoot)
+ {
+    "name" : "$elem.name",
+    "realName" : "$elem.realName",
+    "characterType" : "$elem.characterType",
+    "gender" : "$elem.gender",
+    "description" : "$elem.description",
+    "imageUrl" : "$elem.imageUrl",
+    "powers" : [
+#foreach($power in $elem.powers)
+ "$power" 
+#if($foreach.hasNext),#end
+#end
+]
+  } 
+#if($foreach.hasNext),#end
+#end
+]
+}'
