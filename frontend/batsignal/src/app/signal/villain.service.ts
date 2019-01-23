@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { AuthService } from '../user/auth.service';
-import { VillainData } from './villain-data.model';
+import { VillainData, VillainList } from './villain-data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +14,7 @@ export class VillainService {
   dataLoadFailed = new Subject<boolean>();
   currentVillains: VillainData[];
 
-  constructor(private http: Http, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   onRetrieveData(name = '') {
     this.dataLoadFailed.next(false);
@@ -27,12 +26,11 @@ export class VillainService {
       }
 
       this.http
-        .get('https://api.bat-signal.net/villains/' + name, {
-          headers: new Headers({
+        .get<VillainList>('https://api.bat-signal.net/villains/' + name, {
+          headers: new HttpHeaders({
             Authorization: session.getIdToken().getJwtToken()
           })
         })
-        .pipe(map((response: Response) => response.json()))
         .subscribe(
           data => {
             this.currentVillains = data.villains;

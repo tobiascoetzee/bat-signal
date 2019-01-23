@@ -7,3 +7,7 @@ export interface VillainData {
   imageUrl: string;
   powers: string[];
 }
+
+export interface VillainList {
+  villains: VillainData[];
+}

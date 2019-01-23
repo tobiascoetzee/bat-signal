@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../user/auth.service';
 import { SignalData } from './signal-data.model';
 import { Subject } from 'rxjs';
@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
 })
 export class SignalService {
   alertReferenceReturned = new Subject<AlertReferenceData>();
-  constructor(private http: Http, private authService: AuthService) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   onInsertData(data: SignalData) {
 
@@ -22,12 +22,11 @@ export class SignalService {
       }
 
       this.http
-        .post('https://api.bat-signal.net/alerts/', data, {
-          headers: new Headers({
+        .post<AlertReferenceData>('https://api.bat-signal.net/alerts/', data, {
+          headers: new HttpHeaders({
             Authorization: session.getIdToken().getJwtToken()
           })
         })
-        .pipe(map((response: Response) => response.json()))
         .subscribe(
           result => {
             console.log(result);
