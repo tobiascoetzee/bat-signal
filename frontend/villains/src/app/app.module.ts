@@ -10,9 +10,7 @@ import { VillainListComponent } from './villain/villain-list/villain-list.compon
 import { VillainDetailComponent } from './villain/villain-detail/villain-detail.component';
 import { VillainEditComponent } from './villain/villain-edit/villain-edit.component';
 import { VillainComponent } from './villain/villain.component';
-import { AuthGuard } from './user/auth.guard';
-import { AuthService } from './user/auth.service';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { VillainItemComponent } from './villain/villain-list/villain-item/villain-item.component';
 import { VillainStartComponent } from './villain/villain-start/villain-start.component';
 
@@ -33,7 +31,7 @@ import { VillainStartComponent } from './villain/villain-start/villain-start.com
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

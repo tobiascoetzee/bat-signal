@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
 
-import { VillainData } from './villain-data.model';
+import { VillainData, VillainList } from './villain-data.model';
 import { AuthService } from '../user/auth.service';
 
 @Injectable({
@@ -15,7 +14,7 @@ export class VillainService {
   dataLoadFailed = new Subject<boolean>();
   currentVillains: VillainData[];
 
-  constructor(private http: Http, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   onRetrieveData(name = '') {
     this.dataLoadFailed.next(false);
@@ -27,12 +26,11 @@ export class VillainService {
       }
 
       this.http
-        .get('https://api.bat-signal.net/villains/' + name, {
-          headers: new Headers({
+        .get<VillainList>('https://api.bat-signal.net/villains/' + name, {
+          headers: new HttpHeaders({
             Authorization: session.getIdToken().getJwtToken()
           })
         })
-        .pipe(map((response: Response) => response.json()))
         .subscribe(
           data => {
             this.currentVillains = data.villains;
@@ -63,7 +61,7 @@ export class VillainService {
 
       this.http
         .delete('https://api.bat-signal.net/villains/' + name, {
-          headers: new Headers({
+          headers: new HttpHeaders({
             Authorization: session.getIdToken().getJwtToken()
           })
         })
@@ -91,7 +89,7 @@ export class VillainService {
 
       this.http
         .post('https://api.bat-signal.net/villains/', data, {
-          headers: new Headers({
+          headers: new HttpHeaders({
             Authorization: session.getIdToken().getJwtToken()
           })
         })
@@ -122,7 +120,7 @@ export class VillainService {
 
       this.http
         .put('https://api.bat-signal.net/villains/' + data.name, data, {
-          headers: new Headers({
+          headers: new HttpHeaders({
             Authorization: session.getIdToken().getJwtToken()
           })
         })
